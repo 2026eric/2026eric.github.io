@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>異常回報表</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    font-family:"Microsoft JhengHei",sans-serif;
+}
+
+body{
+    margin:0;
+    padding:30px;
+    background:#f4f6f9;
+}
+
+.container{
+    max-width:1400px;
+    margin:auto;
+    background:#ffffff;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 3px 12px rgba(0,0,0,0.15);
+}
+
+h1{
+    text-align:center;
+    color:#005a9e;
+    margin-bottom:30px;
+}
+
+h2{
+    background:#005a9e;
+    color:white;
+    padding:12px;
+    border-radius:5px;
+    margin-top:30px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px 25px;
+    max-width:1000px;
+    margin:0 auto;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+label{
+    font-weight:bold;
+    color:#222222;
+    margin-bottom:6px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:10px;
+    border:1px solid #cccccc;
+    border-radius:5px;
+    font-size:14px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+table th{
+    background:#eeeeee;
+    color:#000000;
+    border:1px solid #cccccc;
+    padding:12px;
+}
+
+table td{
+    background:#ffffff;
+    color:#000000;
+    border:1px solid #cccccc;
+    padding:10px;
+}
+
+.report-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+	max-width:1000px;
+    margin:0 auto;
+}
+
+.report-box{
+    background:#fafafa;
+    border:1px solid #cccccc;
+    border-radius:8px;
+    padding:15px;
+}
+
+.report-box label{
+    display:block;
+    margin-bottom:10px;
+}
+
+.report-box textarea{
+    width:100%;
+    height:260px;
+    resize:vertical;
+}
+
+.submit-btn{
+    width:100%;
+    padding:15px;
+    margin-top:30px;
+    border:none;
+    border-radius:5px;
+    font-size:18px;
+    color:white;
+    background:#28a745;
+    cursor:pointer;
+}
+
+.submit-btn:hover{
+    background:#218838;
+}
+
+.notice{
+    text-align:center;
+    color:#666666;
+    margin-top:10px;
+}
+
+@media (max-width:1000px){
+
+    .report-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>異常回報表</h1>
+
+<h2>基本資料</h2>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>編號</label>
+<input type="text" placeholder="請輸入編號">
+</div>
+
+<div class="form-group">
+<label>異常日期</label>
+<input type="text" placeholder="例如：115/10/14">
+</div>
+
+<div class="form-group">
+<label>異常時間</label>
+<input type="text" placeholder="例如：08:30">
+</div>
+
+<div class="form-group">
+<label>工號</label>
+<input type="text" placeholder="請輸入工號">
+</div>
+
+<div class="form-group">
+<label>姓名</label>
+<input type="text" placeholder="請輸入姓名">
+</div>
+
+<div class="form-group">
+<label>分機號碼</label>
+<input type="text" placeholder="請輸入分機號碼">
+</div>
+
+<div class="form-group">
+<label>電話</label>
+<input type="text" placeholder="請輸入電話">
+</div>
+
+<div class="form-group">
+<label>電子郵件</label>
+<input type="text" placeholder="請輸入 Email">
+</div>
+
+<div class="form-group">
+<label>部門</label>
+<input type="text" placeholder="請輸入部門">
+</div>
+
+<div class="form-group">
+<label>職稱</label>
+<input type="text" placeholder="請輸入職稱">
+</div>
+
+</div>
+
+
+
+<h2>異常說明</h2>
+
+<div class="report-grid">
+
+<div class="report-box">
+<label>問題回報</label>
+<textarea placeholder="請詳細描述發現的問題、異常狀況、故障設備或需追蹤事項"></textarea>
+</div>
+
+<div class="report-box">
+<label>其他備註</label>
+<textarea placeholder="請填寫其他補充說明"></textarea>
+</div>
+
+</div>
+
+
+<button class="submit-btn" onclick="fakeSubmit()">
+送出報表
+</button>
+
+<div class="notice">
+此按鈕僅供展示用途，不會實際送出任何資料
+</div>
+
+</div>
+
+<script>
+function fakeSubmit(){
+    alert("巡檢報表已送出（展示模式，不會實際儲存任何資料）");
+}
+</script>
+
+</body>
+</html>
