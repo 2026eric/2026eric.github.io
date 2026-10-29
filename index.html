@@ -1,121 +1,418 @@
-
-
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>學生成績登打系統</title>
+
   <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: "Microsoft JhengHei", Arial, sans-serif; background: linear-gradient(135deg,#f8fafc,#e0e7ff); color:#1e293b; }
-    .container { max-width:1100px; margin:0 auto; padding:32px 16px; }
-    .header,.card { background:#fff; border-radius:18px; box-shadow:0 10px 30px rgba(15,23,42,.09); }
-    .header { padding:24px; margin-bottom:22px; text-align:center; }
-    h1 { margin:0; font-size:28px; }
-    .card { overflow:hidden; }
-    .card-title { padding:18px 22px; font-size:18px; font-weight:700; border-bottom:1px solid #e2e8f0; }
-    .table-wrap { overflow-x:auto; }
-    table { width:100%; border-collapse:collapse; table-layout:fixed; min-width:760px; }
-    th { background:#1e293b; color:#fff; padding:14px 10px; text-align:center; }
-    td { padding:10px; border-bottom:1px solid #e2e8f0; text-align:center; }
-    th:nth-child(1), td:nth-child(1) { width:12%; }
-    th:nth-child(2), td:nth-child(2) { width:18%; }
-    th:nth-child(n+3), td:nth-child(n+3) { width:14%; }
-    tbody tr:nth-child(even) { background:#f8fafc; }
-    tbody tr:hover { background:#eef2ff; }
-    .seat { font-weight:700; }
-    .name { text-align:center; font-weight:700; }
-    .score { width:100%; max-width:115px; padding:10px; border:1px solid #cbd5e1; border-radius:8px; text-align:center; font-size:15px; outline:none; }
-    .score:focus { border-color:#6366f1; box-shadow:0 0 0 3px rgba(99,102,241,.14); }
-    .footer { padding:18px 22px; display:flex; align-items:center; justify-content:flex-end; gap:12px; background:#f8fafc; }
-    button { border:0; border-radius:10px; padding:11px 18px; font-weight:700; cursor:pointer; font-size:14px; }
-    .clear { background:#fff; border:1px solid #cbd5e1; color:#334155; }
-    .save { background:#4f46e5; color:#fff; }
-    #message { margin-right:auto; color:#4338ca; font-weight:700; font-size:14px; }
-    @media(max-width:650px){ .container{padding:16px 10px;} }
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft JhengHei", Arial, sans-serif;
+      background: linear-gradient(135deg, #f8fafc, #e0e7ff);
+      color: #1e293b;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 16px;
+    }
+
+    .header,
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, .09);
+    }
+
+    .header {
+      padding: 24px;
+      margin-bottom: 22px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .card {
+      overflow: hidden;
+    }
+
+    .card-title {
+      padding: 18px 22px;
+      font-size: 18px;
+      font-weight: 700;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      min-width: 760px;
+    }
+
+    th {
+      background: #1e293b;
+      color: #fff;
+      padding: 14px 10px;
+      text-align: center;
+    }
+
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: center;
+    }
+
+    th:nth-child(1),
+    td:nth-child(1) {
+      width: 12%;
+    }
+
+    th:nth-child(2),
+    td:nth-child(2) {
+      width: 18%;
+    }
+
+    th:nth-child(n+3),
+    td:nth-child(n+3) {
+      width: 14%;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    tbody tr:hover {
+      background: #eef2ff;
+    }
+
+    .seat {
+      font-weight: 700;
+    }
+
+    .name {
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .score {
+      width: 100%;
+      max-width: 115px;
+      padding: 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .score:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, .14);
+    }
+
+    .footer {
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      background: #f8fafc;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .clear {
+      background: #fff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+    }
+
+    .save {
+      background: #4f46e5;
+      color: #fff;
+    }
+
+    #message {
+      margin-right: auto;
+      color: #4338ca;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    @media(max-width: 650px) {
+      .container {
+        padding: 16px 10px;
+      }
+    }
   </style>
 </head>
+
 <body>
+
   <main class="container">
+
     <section class="header">
       <h1>學生成績登打系統</h1>
     </section>
+
     <section class="card">
-      <div class="card-title">成績登打表</div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>學生座號</th><th>姓名</th><th>國文</th><th>英文</th><th>數學</th><th>社會</th><th>自然</th></tr>
-          </thead>
-          <tbody id="studentBody"></tbody>
-        </table>
+
+      <div class="card-title">
+        成績登打表
       </div>
+
+      <div class="table-wrap">
+
+        <table id="scoreTable">
+
+          <thead>
+            <tr>
+              <th id="header-seat">學生座號</th>
+              <th id="header-name">姓名</th>
+              <th id="header-chinese">國文</th>
+              <th id="header-english">英文</th>
+              <th id="header-math">數學</th>
+              <th id="header-social">社會</th>
+              <th id="header-science">自然</th>
+            </tr>
+          </thead>
+
+          <tbody id="studentBody"></tbody>
+
+        </table>
+
+      </div>
+
       <div class="footer">
         <span id="message"></span>
-        <button class="clear" id="clearBtn">清除成績</button>
-        <button class="save" id="saveBtn">儲存成績</button>
+        <button
+          class="clear"
+          id="clearBtn"
+          type="button"
+        >
+          清除成績
+        </button>
+
+        <button
+          class="save"
+          id="saveBtn"
+          type="button"
+        >
+          儲存成績
+        </button>
       </div>
+
     </section>
+
   </main>
+
   <script>
     const students = [
-      [1,"陳冠宇"],[2,"林柏翰"],[3,"王俊傑"],[4,"張家豪"],[5,"李承恩"],
-      [6,"黃子軒"],[7,"吳秉宸"],[8,"劉昱廷"],[9,"蔡明哲"],[10,"楊皓翔"],
-      [11,"許博凱"],[12,"陳語彤"],[13,"林欣妤"],[14,"王品涵"],[15,"張雅晴"],
-      [16,"李佳蓉"],[17,"黃郁婷"],[18,"吳思穎"],[19,"劉芷妍"],[20,"蔡依庭"]
+      [1, "陳冠宇"],
+      [2, "林柏翰"],
+      [3, "王俊傑"],
+      [4, "張家豪"],
+      [5, "李承恩"],
+      [6, "黃子軒"],
+      [7, "吳秉宸"],
+      [8, "劉昱廷"],
+      [9, "蔡明哲"],
+      [10, "楊皓翔"],
+      [11, "許博凱"],
+      [12, "陳語彤"],
+      [13, "林欣妤"],
+      [14, "王品涵"],
+      [15, "張雅晴"],
+      [16, "李佳蓉"],
+      [17, "黃郁婷"],
+      [18, "吳思穎"],
+      [19, "劉芷妍"],
+      [20, "蔡依庭"]
     ];
-    const subjects = ["chinese","english","math","social","science"];
+
+    const subjects = [
+      "chinese",
+      "english",
+      "math",
+      "social",
+      "science"
+    ];
+
+    const subjectNames = {
+      chinese: "國文",
+      english: "英文",
+      math: "數學",
+      social: "社會",
+      science: "自然"
+    };
+
     const body = document.getElementById("studentBody");
     const message = document.getElementById("message");
 
     function render() {
       body.innerHTML = "";
-      students.forEach(([seat,name]) => {
+
+      students.forEach(([seat, name]) => {
+
         const row = document.createElement("tr");
-        row.innerHTML = `<td class="seat">${seat}</td><td class="name">${name}</td>` +
-          subjects.map(subject => `<td><input class="score" type="text" inputmode="numeric" maxlength="3" data-seat="${seat}" data-subject="${subject}" aria-label="${name} ${subject} 成績"></td>`).join("");
+
+        row.id = `student-${seat}`;
+        row.dataset.seat = seat;
+        row.dataset.name = name;
+
+        const seatCell = document.createElement("td");
+        seatCell.id = `seat-${seat}`;
+        seatCell.className = "seat";
+        seatCell.textContent = seat;
+
+        const nameCell = document.createElement("td");
+        nameCell.id = `name-${seat}`;
+        nameCell.className = "name";
+        nameCell.textContent = name;
+
+        row.appendChild(seatCell);
+        row.appendChild(nameCell);
+
+        subjects.forEach(subject => {
+
+          const cell = document.createElement("td");
+
+          const input = document.createElement("input");
+
+          input.id = `score-${seat}-${subject}`;
+          input.className = "score";
+          input.type = "text";
+          input.inputMode = "numeric";
+          input.maxLength = 3;
+
+          input.dataset.seat = seat;
+          input.dataset.subject = subject;
+
+          input.name = `score-${seat}-${subject}`;
+
+          input.setAttribute(
+            "aria-label",
+            `${seat}號 ${name} ${subjectNames[subject]}成績`
+          );
+
+          cell.appendChild(input);
+          row.appendChild(cell);
+        });
+
         body.appendChild(row);
       });
+
       loadScores();
     }
 
     function getScoreData() {
       const data = {};
+
       document.querySelectorAll(".score").forEach(input => {
-        if (!data[input.dataset.seat]) data[input.dataset.seat] = {};
-        data[input.dataset.seat][input.dataset.subject] = input.value;
+
+        const seat = input.dataset.seat;
+        const subject = input.dataset.subject;
+
+        if (!data[seat]) {
+          data[seat] = {};
+        }
+
+        data[seat][subject] = input.value;
       });
+
       return data;
     }
 
     function loadScores() {
-      const saved = JSON.parse(localStorage.getItem("student-score-entry") || "{}");
+      const saved = JSON.parse(
+        localStorage.getItem("student-score-entry") || "{}"
+      );
+
       document.querySelectorAll(".score").forEach(input => {
-        input.value = saved[input.dataset.seat]?.[input.dataset.subject] ?? "";
+
+        const seat = input.dataset.seat;
+        const subject = input.dataset.subject;
+
+        input.value =
+          saved[seat]?.[subject] ?? "";
       });
     }
 
     body.addEventListener("input", event => {
-      if (!event.target.classList.contains("score")) return;
-      let value = event.target.value.replace(/\D/g, "");
-      if (value !== "" && Number(value) > 100) value = "100";
+
+      if (!event.target.classList.contains("score")) {
+        return;
+      }
+
+      let value =
+        event.target.value.replace(/\D/g, "");
+
+      if (
+        value !== "" &&
+        Number(value) > 100
+      ) {
+        value = "100";
+      }
+
       event.target.value = value;
+
       message.textContent = "";
     });
 
-    document.getElementById("saveBtn").addEventListener("click", () => {
-      localStorage.setItem("student-score-entry", JSON.stringify(getScoreData()));
-      message.textContent = "成績已儲存於此瀏覽器";
-    });
+    document
+      .getElementById("saveBtn")
+      .addEventListener("click", () => {
 
-    document.getElementById("clearBtn").addEventListener("click", () => {
-      document.querySelectorAll(".score").forEach(input => input.value = "");
-      localStorage.removeItem("student-score-entry");
-      message.textContent = "已清除全部成績";
-    });
+        localStorage.setItem(
+          "student-score-entry",
+          JSON.stringify(getScoreData())
+        );
+
+        message.textContent =
+          "成績已儲存於此瀏覽器";
+      });
+
+    document
+      .getElementById("clearBtn")
+      .addEventListener("click", () => {
+
+        document
+          .querySelectorAll(".score")
+          .forEach(input => {
+            input.value = "";
+          });
+
+        localStorage.removeItem(
+          "student-score-entry"
+        );
+
+        message.textContent =
+          "已清除全部成績";
+      });
 
     render();
   </script>
+
 </body>
 </html>
